@@ -13,13 +13,12 @@ const { title, description = "Modern portfolio showcasing creative work and proj
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <ViewTransitions />
   <meta name="description" content={description} />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title}</title>
+  <ViewTransitions />
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
@@ -39,14 +38,90 @@ const { title, description = "Modern portfolio showcasing creative work and proj
       overflow-x: hidden;
     }
 
+    /* Enhanced view transition styles for smooth scaling */
     ::view-transition-old(root),
     ::view-transition-new(root) {
-      animation-duration: 0.3s;
+      animation-duration: 0.4s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* Image transitions - the magic happens here */
     ::view-transition-old(project-image),
     ::view-transition-new(project-image) {
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      object-fit: cover;
+    }
+
+    /* Container transitions for the scaling effect */
+    ::view-transition-old(project-container),
+    ::view-transition-new(project-container) {
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Title transitions */
+    ::view-transition-old(project-title),
+    ::view-transition-new(project-title) {
       animation-duration: 0.4s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Description transitions */
+    ::view-transition-old(project-description),
+    ::view-transition-new(project-description) {
+      animation-duration: 0.4s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Custom scaling animation for the hero effect */
+    ::view-transition-old(project-container) {
+      animation-name: scale-out;
+    }
+
+    ::view-transition-new(project-container) {
+      animation-name: scale-in;
+    }
+
+    @keyframes scale-out {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(0.95);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes scale-in {
+      from {
+        transform: scale(1.05);
+        opacity: 0.8;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Fallback for browsers that don't support view transitions */
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-old(root),
+      ::view-transition-new(root),
+      ::view-transition-old(project-image),
+      ::view-transition-new(project-image),
+      ::view-transition-old(project-container),
+      ::view-transition-new(project-container) {
+        animation: none;
+      }
+    }
+
+    /* Ensure smooth transitions on different screen sizes */
+    @media (max-width: 768px) {
+      ::view-transition-old(project-container),
+      ::view-transition-new(project-container) {
+        animation-duration: 0.4s;
+      }
     }
   </style>
 </head>
@@ -54,3 +129,44 @@ const { title, description = "Modern portfolio showcasing creative work and proj
   <slot />
 </body>
 </html>
+
+// Alternative approach with more dramatic scaling effect
+// Add this to your Layout.astro for even more dramatic transitions
+
+<style>
+  /* Alternative: More dramatic hero-style transition */
+  @media (min-width: 768px) {
+    ::view-transition-old(project-container) {
+      animation-name: hero-scale-out;
+    }
+
+    ::view-transition-new(project-container) {
+      animation-name: hero-scale-in;
+    }
+
+    @keyframes hero-scale-out {
+      0% {
+        transform: scale(1);
+        border-radius: 0.5rem;
+      }
+      100% {
+        transform: scale(1.1);
+        border-radius: 0.5rem;
+        opacity: 0;
+      }
+    }
+
+    @keyframes hero-scale-in {
+      0% {
+        transform: scale(0.9);
+        border-radius: 0.5rem;
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        border-radius: 0.5rem;
+        opacity: 1;
+      }
+    }
+  }
+</style>

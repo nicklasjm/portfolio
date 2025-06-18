@@ -33,14 +33,17 @@ const { title, description, image, year, client, role, tags, id } = Astro.props;
       </button>
     </div>
 
-    <!-- Hero Image -->
+    <!-- Hero Image that scales from the card -->
     <div class="relative max-w-7xl mx-auto px-6 mb-16">
-      <div class="aspect-[16/9] rounded-lg overflow-hidden bg-gray-900">
+      <div 
+        class="aspect-[16/9] rounded-lg overflow-hidden bg-gray-900"
+        transition:name={`project-container-${id}`}
+      >
         <img 
           src={image} 
           alt={title}
           class="w-full h-full object-cover"
-          style="view-transition-name: project-image-{id}"
+          transition:name={`project-image-${id}`}
         />
       </div>
     </div>
@@ -51,8 +54,16 @@ const { title, description, image, year, client, role, tags, id } = Astro.props;
         <!-- Main Content -->
         <div class="md:col-span-2 space-y-8">
           <div>
-            <h1 class="text-4xl font-bold mb-4">{title}</h1>
-            <p class="text-xl text-gray-300 leading-relaxed">
+            <h1 
+              class="text-4xl font-bold mb-4"
+              transition:name={`project-title-${id}`}
+            >
+              {title}
+            </h1>
+            <p 
+              class="text-xl text-gray-300 leading-relaxed"
+              transition:name={`project-description-${id}`}
+            >
               {description}
             </p>
           </div>

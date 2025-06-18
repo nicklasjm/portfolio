@@ -13,25 +13,35 @@ const { id, title, description, image, tags, year } = Astro.props;
 
 <article class="group cursor-pointer">
   <a href={`/projects/${id}`} class="block">
-    <div class="relative overflow-hidden bg-gray-900 rounded-lg aspect-[4/3] mb-4">
+    <!-- CRITICAL: The image container gets the transition name -->
+    <div 
+      class="relative overflow-hidden bg-gray-900 rounded-lg aspect-[4/3] mb-4"
+      transition:name={`project-container-${id}`}
+    >
       <img 
         src={image} 
         alt={title}
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        style="view-transition-name: project-image-{id}"
+        transition:name={`project-image-${id}`}
       />
       <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
     </div>
     
     <div class="space-y-2">
       <div class="flex justify-between items-start">
-        <h3 class="text-lg font-semibold group-hover:text-gray-300 transition-colors">
+        <h3 
+          class="text-lg font-semibold group-hover:text-gray-300 transition-colors"
+          transition:name={`project-title-${id}`}
+        >
           {title}
         </h3>
         <span class="text-sm text-gray-400">{year}</span>
       </div>
       
-      <p class="text-gray-400 text-sm leading-relaxed">
+      <p 
+        class="text-gray-400 text-sm leading-relaxed"
+        transition:name={`project-description-${id}`}
+      >
         {description}
       </p>
       
