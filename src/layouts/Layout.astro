@@ -1,0 +1,51 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Modern portfolio showcasing creative work and projects" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content={description} />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      font-family: 'Inter', system-ui, sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+    }
+
+    ::view-transition-old(project-image),
+    ::view-transition-new(project-image) {
+      animation-duration: 0.4s;
+    }
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>

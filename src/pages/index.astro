@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+// Sample project data - replace with your own
+const projects = [
+  {
+    id: 'ecommerce-platform',
+    title: 'E-commerce Platform',
+    description: 'A modern, scalable e-commerce solution with real-time inventory management and seamless checkout experience.',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
+    tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    year: '2024'
+  },
+  {
+    id: 'design-system',
+    title: 'Design System',
+    description: 'Comprehensive design system and component library used across multiple products and teams.',
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&q=80',
+    tags: ['Figma', 'React', 'Storybook', 'TypeScript'],
+    year: '2024'
+  },
+  {
+    id: 'mobile-app',
+    title: 'Mobile Application',
+    description: 'Cross-platform mobile app connecting users with local services and real-time booking capabilities.',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80',
+    tags: ['React Native', 'Firebase', 'Maps API'],
+    year: '2023'
+  },
+  {
+    id: 'data-visualization',
+    title: 'Data Visualization Dashboard',
+    description: 'Interactive dashboard providing real-time analytics and insights for business intelligence.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+    tags: ['D3.js', 'Python', 'FastAPI', 'PostgreSQL'],
+    year: '2023'
+  },
+  {
+    id: 'brand-identity',
+    title: 'Brand Identity',
+    description: 'Complete brand redesign including logo, typography, color palette, and brand guidelines.',
+    image: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=800&q=80',
+    tags: ['Branding', 'Illustrator', 'InDesign'],
+    year: '2023'
+  },
+  {
+    id: 'web-application',
+    title: 'SaaS Web Application',
+    description: 'Feature-rich web application with advanced user management and subscription handling.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+    tags: ['Vue.js', 'Laravel', 'Tailwind CSS'],
+    year: '2022'
+  }
+];
+---
+
+<Layout title="Your Name - Creative Developer & Designer">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
+      <div class="max-w-4xl text-center">
+        <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+          Creative
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
+            Developer
+          </span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          I design and build digital experiences that connect people with technology in meaningful ways.
+        </p>
+        <div class="mt-12">
+          <a 
+            href="#work" 
+            class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
+          >
+            View my work
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-20 px-6">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-16 text-center">Selected Work</h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-gray-900/50">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8">About Me</h2>
+        <p class="text-xl text-gray-300 leading-relaxed mb-8">
+          I'm a creative developer and designer passionate about crafting digital experiences 
+          that are both beautiful and functional. With expertise in modern web technologies 
+          and a keen eye for design, I help brands and businesses connect with their audiences 
+          through thoughtful, user-centered solutions.
+        </p>
+        <div class="grid md:grid-cols-3 gap-8 mt-16">
+          <div>
+            <h3 class="font-semibold mb-4">Development</h3>
+            <p class="text-gray-400 text-sm">
+              React, Vue, Node.js, Python, TypeScript, and modern web technologies
+            </p>
+          </div>
+          <div>
+            <h3 class="font-semibold mb-4">Design</h3>
+            <p class="text-gray-400 text-sm">
+              UI/UX design, prototyping, design systems, and brand identity
+            </p>
+          </div>
+          <div>
+            <h3 class="font-semibold mb-4">Strategy</h3>
+            <p class="text-gray-400 text-sm">
+              Product strategy, user research, and digital transformation
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-8">Let's Work Together</h2>
+        <p class="text-xl text-gray-300 mb-12">
+          Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
+        </p>
+        <a 
+          href="mailto:your.email@example.com" 
+          class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
+        >
+          Get in touch
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  import { ViewTransitions } from 'astro:transitions/client';
+  
+  // Add smooth scroll behavior
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.substring(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>

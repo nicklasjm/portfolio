@@ -1,0 +1,148 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: { id: 'ecommerce-platform' },
+      props: {
+        title: 'E-commerce Platform',
+        description: 'A modern, scalable e-commerce solution with real-time inventory management and seamless checkout experience.',
+        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80',
+        year: '2024',
+        client: 'Retail Corp',
+        role: 'Full-stack Developer',
+        tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+        id: 'ecommerce-platform'
+      }
+    },
+    {
+      params: { id: 'design-system' },
+      props: {
+        title: 'Design System',
+        description: 'Comprehensive design system and component library used across multiple products and teams.',
+        image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80',
+        year: '2024',
+        client: 'Tech Startup',
+        role: 'Design System Lead',
+        tags: ['Figma', 'React', 'Storybook', 'TypeScript'],
+        id: 'design-system'
+      }
+    },
+    {
+      params: { id: 'mobile-app' },
+      props: {
+        title: 'Mobile Application',
+        description: 'Cross-platform mobile app connecting users with local services and real-time booking capabilities.',
+        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80',
+        year: '2023',
+        client: 'Service Platform',
+        role: 'Mobile Developer',
+        tags: ['React Native', 'Firebase', 'Maps API'],
+        id: 'mobile-app'
+      }
+    },
+    {
+      params: { id: 'data-visualization' },
+      props: {
+        title: 'Data Visualization Dashboard',
+        description: 'Interactive dashboard providing real-time analytics and insights for business intelligence.',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
+        year: '2023',
+        client: 'Analytics Co',
+        role: 'Frontend Developer',
+        tags: ['D3.js', 'Python', 'FastAPI', 'PostgreSQL'],
+        id: 'data-visualization'
+      }
+    },
+    {
+      params: { id: 'brand-identity' },
+      props: {
+        title: 'Brand Identity',
+        description: 'Complete brand redesign including logo, typography, color palette, and brand guidelines.',
+        image: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1200&q=80',
+        year: '2023',
+        client: 'Design Agency',
+        role: 'Brand Designer',
+        tags: ['Branding', 'Illustrator', 'InDesign'],
+        id: 'brand-identity'
+      }
+    },
+    {
+      params: { id: 'web-application' },
+      props: {
+        title: 'SaaS Web Application',
+        description: 'Feature-rich web application with advanced user management and subscription handling.',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80',
+        year: '2022',
+        client: 'SaaS Startup',
+        role: 'Lead Developer',
+        tags: ['Vue.js', 'Laravel', 'Tailwind CSS'],
+        id: 'web-application'
+      }
+    }
+  ];
+}
+
+const props = Astro.props;
+---
+
+<ProjectLayout {...props}>
+  <div class="space-y-8">
+    <h2 class="text-2xl font-bold">Project Overview</h2>
+    
+    <p class="text-gray-300 leading-relaxed">
+      This project showcases modern web development practices and design principles. 
+      The challenge was to create a solution that balances user experience with technical performance, 
+      resulting in a product that exceeds both user expectations and business requirements.
+    </p>
+
+    <h3 class="text-xl font-semibold mt-8">Key Features</h3>
+    
+    <ul class="space-y-3 text-gray-300">
+      <li class="flex items-start gap-3">
+        <span class="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0"></span>
+        Responsive design that works seamlessly across all devices
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0"></span>
+        Performance optimized for fast loading and smooth interactions
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0"></span>
+        Accessibility-first approach ensuring inclusive user experience
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0"></span>
+        Scalable architecture built for future growth
+      </li>
+    </ul>
+
+    <h3 class="text-xl font-semibold mt-8">Challenges & Solutions</h3>
+    
+    <p class="text-gray-300 leading-relaxed">
+      The main challenge was balancing feature complexity with user experience simplicity. 
+      We solved this through iterative design, user testing, and careful attention to 
+      information architecture. The result is an interface that feels intuitive while 
+      providing powerful functionality.
+    </p>
+
+    <div class="bg-gray-900 p-6 rounded-lg mt-8">
+      <h4 class="font-semibold mb-4">Project Results</h4>
+      <div class="grid md:grid-cols-3 gap-6 text-center">
+        <div>
+          <div class="text-2xl font-bold">95%</div>
+          <div class="text-sm text-gray-400">User Satisfaction</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">40%</div>
+          <div class="text-sm text-gray-400">Performance Improvement</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">60%</div>
+          <div class="text-sm text-gray-400">Conversion Increase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ProjectLayout>
