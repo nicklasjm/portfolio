@@ -1,9 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-// Sample project data - replace with your own
 const projects = [
   {
     id: 'ecommerce-platform',
@@ -57,122 +55,367 @@ const projects = [
 ---
 
 <Layout title="Your Name - Creative Developer & Designer">
-  <Header />
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
-      <div class="max-w-4xl text-center">
-        <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+  <!-- Hero Section with In-page Navigation -->
+  <section id="home" class="content-section hero-section">
+    <div class="hero-content">
+      <!-- Accessible navigation -->
+      <nav aria-label="Page navigation" class="page-nav">
+        <ul>
+          <li><a href="#work" class="nav-link">Work</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-text">
+        <h1 class="hero-title">
           Creative
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
-            Developer
-          </span>
+          <span class="hero-subtitle">Developer</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        <p class="hero-description">
           I design and build digital experiences that connect people with technology in meaningful ways.
         </p>
-        <div class="mt-12">
-          <a 
-            href="#work" 
-            class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
-          >
-            View my work
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work" class="py-20 px-6">
-      <div class="max-w-7xl mx-auto">
-        <h2 class="text-4xl font-bold mb-16 text-center">Selected Work</h2>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <ProjectCard {...project} />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 px-6 bg-gray-900/50">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-8">About Me</h2>
-        <p class="text-xl text-gray-300 leading-relaxed mb-8">
-          I'm a creative developer and designer passionate about crafting digital experiences 
-          that are both beautiful and functional. With expertise in modern web technologies 
-          and a keen eye for design, I help brands and businesses connect with their audiences 
-          through thoughtful, user-centered solutions.
-        </p>
-        <div class="grid md:grid-cols-3 gap-8 mt-16">
-          <div>
-            <h3 class="font-semibold mb-4">Development</h3>
-            <p class="text-gray-400 text-sm">
-              React, Vue, Node.js, Python, TypeScript, and modern web technologies
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold mb-4">Design</h3>
-            <p class="text-gray-400 text-sm">
-              UI/UX design, prototyping, design systems, and brand identity
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold mb-4">Strategy</h3>
-            <p class="text-gray-400 text-sm">
-              Product strategy, user research, and digital transformation
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-8">Let's Work Together</h2>
-        <p class="text-xl text-gray-300 mb-12">
-          Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
-        </p>
-        <a 
-          href="mailto:your.email@example.com" 
-          class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
-        >
-          Get in touch
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        <a href="#work" class="cta-button">
+          <span>View my work</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </a>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work" class="content-section" aria-labelledby="work-heading">
+    <h2 id="work-heading" class="section-heading">Selected Work</h2>
+    
+    <div class="projects-grid" role="list" aria-label="Portfolio projects">
+      {projects.map((project) => (
+        <div role="listitem">
+          <ProjectCard {...project} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="content-section about-section" aria-labelledby="about-heading">
+    <div class="about-content">
+      <h2 id="about-heading" class="section-heading">About Me</h2>
+      <p class="about-description">
+        I'm a creative developer and designer passionate about crafting digital experiences 
+        that are both beautiful and functional. With expertise in modern web technologies 
+        and a keen eye for design, I help brands and businesses connect with their audiences 
+        through thoughtful, user-centered solutions.
+      </p>
+      
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3 class="skill-title">Development</h3>
+          <p class="skill-description">
+            React, Vue, Node.js, Python, TypeScript, and modern web technologies
+          </p>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-title">Design</h3>
+          <p class="skill-description">
+            UI/UX design, prototyping, design systems, and brand identity
+          </p>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-title">Strategy</h3>
+          <p class="skill-description">
+            Product strategy, user research, and digital transformation
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="content-section" aria-labelledby="contact-heading">
+    <div class="contact-content">
+      <h2 id="contact-heading" class="section-heading">Let's Work Together</h2>
+      <p class="contact-description">
+        Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
+      </p>
+      
+      <div class="contact-info">
+        <div class="contact-method">
+          <h3 class="contact-label">Email</h3>
+          <a href="mailto:your.email@example.com" class="contact-link">
+            your.email@example.com
+          </a>
+        </div>
+        <div class="contact-method">
+          <h3 class="contact-label">Phone</h3>
+          <a href="tel:+1234567890" class="contact-link">
+            +1 (234) 567-890
+          </a>
+        </div>
+      </div>
+
+      <a href="mailto:your.email@example.com" class="cta-button dark-bg">
+        <span>Get in touch</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
 </Layout>
 
-<script>
-  import { ViewTransitions } from 'astro:transitions/client';
-  
-  // Add smooth scroll behavior
-  document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('a[href^="#"]');
+<style>
+  /* Hero Section */
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+  }
+
+  .page-nav {
+    margin-bottom: 4rem;
+  }
+
+  .page-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    color: #4a4a4a; /* Better contrast */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: #1a1a1a;
+    background-color: #f3f4f6;
+  }
+
+  .nav-link:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    color: #1a1a1a;
+  }
+
+  .hero-subtitle {
+    display: block;
+    background: linear-gradient(135deg, #4a4a4a 0%, #6b7280 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-description {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+  }
+
+  .cta-button:hover {
+    background: #374151;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .cta-button:focus {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+  }
+
+  /* Section Styling */
+  .section-heading {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+    color: #1a1a1a;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+  }
+
+  /* About Section */
+  .about-section {
+    background: #f8f9fa;
+    margin-left: -60px;
+    margin-right: -60px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .about-content {
+    max-width: 800px;
+  }
+
+  .about-description {
+    font-size: 1.25rem;
+    color: #4a4a4a;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .skill-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .skill-description {
+    color: #4a4a4a;
+    line-height: 1.6;
+  }
+
+  /* Contact Section */
+  .contact-content {
+    max-width: 800px;
+  }
+
+  .contact-description {
+    font-size: 1.25rem;
+    color: #4a4a4a;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .contact-link {
+    color: #4a4a4a;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 4px 0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+
+  .contact-link:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.25rem;
+    }
+
+    .section-heading {
+      font-size: 2.5rem;
+    }
+
+    .page-nav ul {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-section {
+      margin-left: -30px;
+      margin-right: -30px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-section {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .section-heading {
+      font-size: 2rem;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .nav-link,
+    .contact-link {
+      text-decoration: underline;
+    }
     
-    links.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href')?.substring(1);
-        const targetElement = document.getElementById(targetId || '');
-        
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  });
-</script>
+    .cta-button {
+      border: 2px solid #ffffff;
+    }
+  }
+
+  /* Focus indicators for keyboard navigation */
+  *:focus-visible {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+  }
+</style>

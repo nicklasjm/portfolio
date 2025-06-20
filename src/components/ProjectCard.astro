@@ -11,47 +11,241 @@ export interface Props {
 const { id, title, description, image, tags, year } = Astro.props;
 ---
 
-<article class="group cursor-pointer">
-  <a href={`/projects/${id}`} class="block">
-    <!-- CRITICAL: The image container gets the transition name -->
+<article class="project-card">
+  <a href={`/projects/${id}`} class="project-card-link" aria-label={`View ${title} project details`}>
     <div 
-      class="relative overflow-hidden bg-gray-900 rounded-lg aspect-[4/3] mb-4"
+      class="project-image"
       transition:name={`project-container-${id}`}
     >
       <img 
         src={image} 
-        alt={title}
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        alt={`${title} project screenshot`}
         transition:name={`project-image-${id}`}
       />
-      <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+      <div class="project-overlay" aria-hidden="true"></div>
     </div>
     
-    <div class="space-y-2">
-      <div class="flex justify-between items-start">
+    <div class="project-content">
+      <div class="project-header">
         <h3 
-          class="text-lg font-semibold group-hover:text-gray-300 transition-colors"
+          class="project-title"
           transition:name={`project-title-${id}`}
         >
           {title}
         </h3>
-        <span class="text-sm text-gray-400">{year}</span>
+        <span class="project-year" aria-label={`Completed in ${year}`}>{year}</span>
       </div>
       
       <p 
-        class="text-gray-400 text-sm leading-relaxed"
+        class="project-description"
         transition:name={`project-description-${id}`}
       >
         {description}
       </p>
       
-      <div class="flex flex-wrap gap-2 pt-2">
+      <div class="project-tags" role="list" aria-label="Technologies used">
         {tags.map((tag) => (
-          <span class="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-300">
-            {tag}
-          </span>
+          <span class="project-tag" role="listitem">{tag}</span>
         ))}
       </div>
     </div>
   </a>
 </article>
+
+<style>
+  .project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 2px solid #e5e7eb; /* Better contrast border */
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .project-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .project-card-link:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(74, 144, 226, 0.2);
+  }
+
+  .project-card-link:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(74, 144, 226, 0.2);
+  }
+
+  .project-card-link:focus .project-card {
+    transform: translateY(-4px);
+    border-color: #4A90E2;
+    box-shadow: 0 20px 40px rgba(74, 144, 226, 0.3);
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f3f4f6;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.3s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-card:hover .project-overlay {
+    background: rgba(0,0,0,0.1);
+  }
+
+  .project-content {
+    padding: 24px;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 16px;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: #1a1a1a;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .project-year {
+    font-size: 0.875rem;
+    color: #6b7280; /* Better contrast */
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .project-description {
+    color: #4a4a4a; /* Better contrast */
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    font-size: 0.95rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-tag {
+    background: #e5e7eb; /* Better contrast background */
+    color: #374151; /* Better contrast text */
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid #d1d5db;
+  }
+
+  @media (max-width: 768px) {
+    .project-content {
+      padding: 20px;
+    }
+    
+    .project-title {
+      font-size: 1.1rem;
+    }
+    
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .project-card {
+      border: 3px solid #000000;
+    }
+    
+    .project-card-link:focus .project-card {
+      border: 3px solid #4A90E2;
+      background: #f0f8ff;
+    }
+    
+    .project-tag {
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+    }
+    
+    .project-description {
+      color: #000000;
+    }
+  }
+
+  /* Ensure focus states work with reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .project-card-link:focus .project-card {
+      border-color: #4A90E2;
+      box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.5);
+      transform: none;
+    }
+  }
+
+  /* Enhanced focus states for keyboard navigation */
+  .project-card-link:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(74, 144, 226, 0.2);
+  }
+
+  .project-card-link:focus .project-card {
+    transform: translateY(-4px);
+    border-color: #4A90E2;
+    box-shadow: 0 20px 40px rgba(74, 144, 226, 0.3);
+  }
+
+  .project-card-link:focus .project-image img {
+    transform: scale(1.02);
+  }
+
+  .project-card-link:focus .project-overlay {
+    background: rgba(74, 144, 226, 0.1);
+  }
+
+  /* Focus-within for additional accessibility */
+  .project-card:focus-within {
+    transform: translateY(-4px);
+    border-color: #4A90E2;
+    box-shadow: 0 20px 40px rgba(74, 144, 226, 0.3);
+  }
+</style>

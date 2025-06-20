@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import Sidebar from '../components/Sidebar.astro';
 
 export interface Props {
   title: string;
@@ -23,29 +24,162 @@ const { title, description = "Modern portfolio showcasing creative work and proj
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
     
     html {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       scroll-behavior: smooth;
+      height: 100%;
     }
     
     body {
       margin: 0;
-      background: #000;
-      color: #fff;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       overflow-x: hidden;
+      height: 100%;
+      line-height: 1.6;
+      font-weight: 400;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Enhanced view transition styles for smooth scaling */
+    /* CSS Variables for Theme System */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-tertiary: #e5e7eb;
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #6b7280;
+      --border-color: #d1d5db;
+      --border-light: #e5e7eb;
+      --focus-color: #4A90E2;
+      --focus-bg: rgba(74, 144, 226, 0.2);
+      --card-bg: #ffffff;
+      --sidebar-bg: #f8f9fa;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #e5e5e5;
+      --text-muted: #a1a1aa;
+      --border-color: #374151;
+      --border-light: #2d2d2d;
+      --focus-color: #60a5fa;
+      --focus-bg: rgba(96, 165, 250, 0.2);
+      --card-bg: #1a1a1a;
+      --sidebar-bg: #0f0f0f;
+    }
+
+    /* Typography with improved contrast */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Layout Container */
+    .layout-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Main content area */
+    .main-content {
+      flex: 1;
+      margin-left: 300px;
+      background: var(--bg-primary);
+      position: relative;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    /* Content sections */
+    .content-section {
+      padding: 80px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 60px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content-section {
+        padding: 40px 20px;
+      }
+    }
+
+    /* Enhanced focus states when actively using keyboard navigation */
+    body.user-tabbing .project-card-link:focus {
+      outline: 4px solid var(--focus-color);
+      outline-offset: 6px;
+      box-shadow: 0 0 0 10px var(--focus-bg);
+      border-radius: 16px;
+    }
+
+    body.user-tabbing .project-card-link:focus .project-card {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--focus-color);
+      box-shadow: 0 25px 50px var(--focus-bg);
+    }
+
+    /* Focus States for All Interactive Elements */
+    a, button, input, textarea, select {
+      transition: all 0.2s ease;
+    }
+
+    a:focus,
+    button:focus,
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 3px solid var(--focus-color);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* High contrast focus for dark backgrounds */
+    .dark-bg a:focus,
+    .dark-bg button:focus {
+      outline: 3px solid #FFD700;
+      outline-offset: 2px;
+    }
+
+    /* Ensure focus is visible even with custom styles */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--focus-color);
+      outline-offset: 2px;
+    }
+
+    /* Enhanced view transition styles */
     ::view-transition-old(root),
     ::view-transition-new(root) {
       animation-duration: 0.4s;
       animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Image transitions - the magic happens here */
     ::view-transition-old(project-image),
     ::view-transition-new(project-image) {
       animation-duration: 0.5s;
@@ -53,28 +187,25 @@ const { title, description = "Modern portfolio showcasing creative work and proj
       object-fit: cover;
     }
 
-    /* Container transitions for the scaling effect */
     ::view-transition-old(project-container),
     ::view-transition-new(project-container) {
       animation-duration: 0.5s;
       animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Title transitions */
     ::view-transition-old(project-title),
     ::view-transition-new(project-title) {
       animation-duration: 0.4s;
       animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Description transitions */
     ::view-transition-old(project-description),
     ::view-transition-new(project-description) {
       animation-duration: 0.4s;
       animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Custom scaling animation for the hero effect */
+    /* Custom scaling animation */
     ::view-transition-old(project-container) {
       animation-name: scale-out;
     }
@@ -104,69 +235,206 @@ const { title, description = "Modern portfolio showcasing creative work and proj
       }
     }
 
-    /* Fallback for browsers that don't support view transitions */
+    /* Respect user's motion preferences */
     @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      
       ::view-transition-old(root),
       ::view-transition-new(root),
       ::view-transition-old(project-image),
       ::view-transition-new(project-image),
       ::view-transition-old(project-container),
       ::view-transition-new(project-container) {
-        animation: none;
+        animation: none !important;
       }
     }
 
-    /* Ensure smooth transitions on different screen sizes */
-    @media (max-width: 768px) {
-      ::view-transition-old(project-container),
-      ::view-transition-new(project-container) {
-        animation-duration: 0.4s;
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      p {
+        color: #000000;
       }
+      
+      a {
+        text-decoration: underline;
+      }
+      
+      button {
+        border: 2px solid #000000;
+      }
+    }
+
+    /* Screen reader only text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
+
+  <!-- Working scroll restoration script -->
+  <script>
+    // Theme Management
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      // Update theme toggle button if it exists
+      const themeToggle = document.querySelector('.theme-toggle');
+      if (themeToggle) {
+        updateThemeToggleIcon(savedTheme);
+      }
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeToggleIcon(newTheme);
+    }
+
+    function updateThemeToggleIcon(theme) {
+      const toggle = document.querySelector('.theme-toggle');
+      const sunIcon = toggle?.querySelector('.sun-icon');
+      const moonIcon = toggle?.querySelector('.moon-icon');
+      
+      if (theme === 'dark') {
+        sunIcon?.style.setProperty('display', 'block');
+        moonIcon?.style.setProperty('display', 'none');
+        toggle?.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        sunIcon?.style.setProperty('display', 'none');
+        moonIcon?.style.setProperty('display', 'block');
+        toggle?.setAttribute('aria-label', 'Switch to dark mode');
+      }
+    }
+
+    // Initialize theme on page load
+    initializeTheme();
+
+    // Make theme functions globally available
+    window.toggleTheme = toggleTheme;
+
+    // Create fade overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-primary); z-index: 9999; opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease; pointer-events: none;
+    `;
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(overlay);
+
+    // Disable browser scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Track scroll position
+    let savedScrollPosition = 0;
+
+    // Save on navigation away
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a');
+      if (link && link.href && !link.href.includes('#') && link.href !== window.location.href) {
+        savedScrollPosition = window.scrollY;
+        sessionStorage.setItem('portfolioScroll', savedScrollPosition.toString());
+        
+        overlay.style.opacity = '1';
+        overlay.style.visibility = 'visible';
+      }
+    });
+
+    // Restore position function
+    function restoreScrollPosition() {
+      if (window.location.pathname === '/') {
+        const sessionPosition = sessionStorage.getItem('portfolioScroll');
+        const targetPosition = sessionPosition ? parseInt(sessionPosition) : savedScrollPosition;
+        
+        if (targetPosition > 0) {
+          window.scrollTo({ top: targetPosition, behavior: 'instant' });
+          document.documentElement.scrollTop = targetPosition;
+          document.body.scrollTop = targetPosition;
+        }
+      }
+    }
+
+    // Restore on page events
+    document.addEventListener('astro:after-swap', () => {
+      setTimeout(() => {
+        restoreScrollPosition();
+        setTimeout(() => {
+          overlay.style.opacity = '0';
+          overlay.style.visibility = 'hidden';
+        }, 150);
+      }, 50);
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(restoreScrollPosition, 100);
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+      }, 200);
+    });
+
+    // Enhanced smooth scrolling for anchor links
+    document.addEventListener('click', function(e) {
+      const target = e.target.closest('a[href^="#"]');
+      if (target) {
+        e.preventDefault();
+        const element = document.querySelector(target.getAttribute('href'));
+        if (element) {
+          // Announce to screen readers
+          element.focus();
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+
+    // Enhanced keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      // Enable keyboard navigation for project cards
+      if (e.key === 'Enter' || e.key === ' ') {
+        const focusedElement = document.activeElement;
+        if (focusedElement && focusedElement.classList.contains('project-card-link')) {
+          e.preventDefault();
+          focusedElement.click();
+        }
+      }
+      
+      // Add visual feedback for tab navigation
+      if (e.key === 'Tab') {
+        document.body.classList.add('user-tabbing');
+      }
+    });
+
+    // Remove tab class when mouse is used
+    document.addEventListener('mousedown', function() {
+      document.body.classList.remove('user-tabbing');
+    });
+  </script>
+
 </head>
 <body>
-  <slot />
+  <div class="layout-container">
+    <Sidebar />
+    <main id="main-content" class="main-content" tabindex="-1">
+      <slot />
+    </main>
+  </div>
 </body>
 </html>
-
-// Alternative approach with more dramatic scaling effect
-// Add this to your Layout.astro for even more dramatic transitions
-
-<style>
-  /* Alternative: More dramatic hero-style transition */
-  @media (min-width: 768px) {
-    ::view-transition-old(project-container) {
-      animation-name: hero-scale-out;
-    }
-
-    ::view-transition-new(project-container) {
-      animation-name: hero-scale-in;
-    }
-
-    @keyframes hero-scale-out {
-      0% {
-        transform: scale(1);
-        border-radius: 0.5rem;
-      }
-      100% {
-        transform: scale(1.1);
-        border-radius: 0.5rem;
-        opacity: 0;
-      }
-    }
-
-    @keyframes hero-scale-in {
-      0% {
-        transform: scale(0.9);
-        border-radius: 0.5rem;
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        border-radius: 0.5rem;
-        opacity: 1;
-      }
-    }
-  }
-</style>
